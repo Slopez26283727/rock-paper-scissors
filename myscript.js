@@ -24,7 +24,6 @@ function getComputerChoice(){
       return "Paper"
     }
   };
-
 function playRound(getHumanChoice,getComputerChoice){
     let humanPick =getHumanChoice();
     let computerPick=getComputerChoice();
@@ -40,7 +39,6 @@ function playRound(getHumanChoice,getComputerChoice){
    else { 
     computerScore ++
     return `You Lose! ${computerPick} beats ${humanPick}`
-   
    }
 };
 function playGame(playRound){
@@ -53,9 +51,5 @@ function playGame(playRound){
     else {
         return `You Lose!`
     } 
-
-
 };
 console.log(playGame(playRound))
-
-
