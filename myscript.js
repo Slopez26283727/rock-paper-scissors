@@ -1,55 +1,52 @@
+alert("Pick rock, paper, or scissors")
 let humanScore=0
 let computerScore=0
+let roundOver = document.querySelector(`.roundOver`)
+let gameInfo = document.querySelector(`.gameInfo`)
+let gameOver = document.querySelector(`.gameOver`)
+let roundInfo = document.querySelector(`.roundInfo`)
+
 function getComputerChoice(){
-    let int= Math.random()*2
-     if (int = 0){
-      return "Rock"
-     }
-     else if (int=1){
-     return "Scissors"
-     }
-     else {
-      return "Paper"
-     }
-  };
-  function getHumanChoice(){
-  let choice = prompt("Choose Rock Paper or Scissors")
-    if (choice.toLowerCase() === "rock"){
-      return "Rock"
-    }
-    else if (choice.toLowerCase() === "scissors"){
-      return "Scissors"
-    }
-    else {
-      return "Paper"
-    }
-  };
-function playRound(getHumanChoice,getComputerChoice){
-    let humanPick =getHumanChoice();
-    let computerPick=getComputerChoice();
+    let randomChoice = (Math.floor(Math.random() * 3) + 1);
+    if (randomChoice === 1) randomChoice = ('Rock');
+    else if (randomChoice === 2) randomChoice = ('Scissors');
+    else randomChoice = ('Paper');
+    return (randomChoice);
+  }
+
+function playRound(humanPick,computerPick){
+  roundInfo.textContent= `Computer chose` + ` ` + computerPick;
     if (humanPick===computerPick){
-     return `Its a tie! Both Chose ${humanPick}`
+     roundOver.textContent= `Its a tie! Both Chose` + ` ` + humanPick; 
    }
    else if (( humanPick === "Rock" &&  computerPick === "Scissors") ||
    ( humanPick === "Scissors" && computerPick === "Paper") ||
    ( humanPick === "Paper" &&  computerPick === "Rock")){
-    humanScore ++
-    return `You Win! ${humanPick} beats ${computerPick}`
+    humanScore = ++humanScore;
+    roundOver.textContent=`You Win!` + ` ` + humanPick + ` ` + `beats` + ` ` + computerPick; 
     }
    else { 
-    computerScore ++
-    return `You Lose! ${computerPick} beats ${humanPick}`
+    computerScore = ++computerScore;
+    roundOver.textContent= `You Lose!`+ ` ` + computerPick + ` ` +`beats` + ` ` + humanPick;
    }
+
 };
-function playGame(playRound){
-    for (let i = 0; i <=4; i++) {
-        console.log(playRound(getHumanChoice,getComputerChoice))   
-    }
-    if (humanScore > computerScore) {
-        return `You Win!`
-    }
-    else {
-        return `You Lose!`
-    } 
-};
-console.log(playGame(playRound))
+const buttons=document.querySelectorAll(`button`);
+buttons.forEach((button)=>{
+ button.addEventListener("click", () =>{
+ let humanP = button.id;
+ let computerP = getComputerChoice();
+ playRound(humanP,computerP);
+ playgame();
+ });
+});
+
+function playgame(){
+gameInfo.textContent=`Player- ${humanScore} Computer-${computerScore}`;
+if (humanScore===5){
+  gameOver.textContent=`Player Win!!!`
+}
+else if (computerScore===5){
+  gameOver.textContent=`You Lost 💀`
+}
+}
